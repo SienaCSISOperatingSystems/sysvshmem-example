@@ -2,8 +2,7 @@
   Demonstration of System V shared memory system calls
 
   Jim Teresco, The College of Saint Rose, Spring 2016
-
-  $Id$
+  Siena College, Fall 2022
 */
 
 #include <stdio.h>
@@ -36,12 +35,14 @@ int main(int argc, char *argv[]) {
 
   // fork the child
   pid = fork();
-  if (pid) {
+  if (pid == 0) {
     // child will print the old values, modify them
     printf("Original message: <%s>, number: %d\n", data->message,
 	   data->number);
-    strcpy(data->message, "The kid was here!");
     data->number = 17;
+    strcpy(data->message, "The kid was here!");
+    printf("Child mod message: <%s>, number: %d\n", data->message,
+	   data->number);
 
     exit(0);
   }
@@ -53,10 +54,10 @@ int main(int argc, char *argv[]) {
 	   data->number);
 
     /* detach from shared memory segment */
-    shmdt(data);
+    //    shmdt(data);
     
     /* free shared memory segment */
-    shmctl(segment_id, IPC_RMID, NULL);
+    //shmctl(segment_id, IPC_RMID, NULL);
   }
   return 0;
 }
