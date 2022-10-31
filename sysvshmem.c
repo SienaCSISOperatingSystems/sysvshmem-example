@@ -54,10 +54,10 @@ int main(int argc, char *argv[]) {
 	   data->number);
 
     /* detach from shared memory segment */
-    //    shmdt(data);
+    shmdt(data);
     
     /* free shared memory segment */
-    //shmctl(segment_id, IPC_RMID, NULL);
+    shmctl(segment_id, IPC_RMID, NULL);
   }
   return 0;
 }
